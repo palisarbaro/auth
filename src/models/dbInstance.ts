@@ -19,5 +19,4 @@ for(const model_fn of models_fn){
     const model = model_fn(sequelize, DataTypes)
     db[model.name] = model
 }
-db.sequelize.sync({ alter: true })
 export default db
