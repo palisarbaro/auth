@@ -10,7 +10,7 @@ import { addResponseOkFuncToResObject } from './middlewares'
 import { errorHandler } from './errors'
 import { port, frontend_url, credentials } from './config'
 
-const app = express()
+export const app = express()
 
 app.use(express.json())
 app.use(cors({ origin: frontend_url, methods: ['GET', 'POST'], credentials: true, optionsSuccessStatus: 200 }))

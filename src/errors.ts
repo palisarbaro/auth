@@ -18,6 +18,12 @@ export class Unauthorized extends ApiError {
     }
 }
 
+export class BadRequest extends ApiError {
+    constructor(message = 'Bad request') {
+        super(400, message)
+    }
+}
+
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export function errorHandler(err, req, res, next) {
     if(err instanceof ApiError){

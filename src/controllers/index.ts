@@ -9,9 +9,6 @@ import TokenService from '../services/TokenService'
 import TokenController from '../controllers/TokenController'
 import UserController from './UserController'
 
-
-
-
 const userAccessor = new SeqUserAccessor(db)
 const tokenAccessor = new SeqTokenAccessor(db)
 

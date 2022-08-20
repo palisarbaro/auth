@@ -1,4 +1,4 @@
-import { UserAlreadyExists } from '../errors'
+import { BadRequest, UserAlreadyExists } from '../errors'
 import TokenService from '../services/TokenService'
 import UserService from '../services/UserService'
 
@@ -13,7 +13,12 @@ export default class UserController{
 
     async createUser(req, res, next) {
         try{
-            const created = await this.userService.createUser(req.body.username, req.body.password)
+            const username = req.body.username
+            const password =  req.body.password
+            if(!(username && password)){
+                throw new BadRequest('Username or password not provided')
+            }
+            const created = await this.userService.createUser(username, password)
             if (created){
                 res.responseOk()
             }
@@ -29,7 +34,11 @@ export default class UserController{
     async login(req, res, next) {
         try{
             const username = req.body.username
-            await this.userService.validatePassword(username, req.body.password)
+            const password =  req.body.password
+            if(!(username && password)){
+                throw new BadRequest('Username or password not provided')
+            }
+            await this.userService.validatePassword(username, password)
             const tokens = await this.tokenService.generateTokens({ username })
             res.cookie('refreshToken', tokens.refreshToken, { maxAge: 1000 * 60 * 60, httpOnly: true, secure: true })
             res.responseOk({ accessToken: tokens.accessToken })
