@@ -3,7 +3,7 @@ name: CI
 on: push
 
 jobs:
-  lint:
+  lint_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,3 +13,7 @@ jobs:
         run: npm i
       - name: "lint"
         run: npm run lint
+      - name: "typescript check"
+        run: npm run build
+      - name: "tests"
+        run: npm run test
