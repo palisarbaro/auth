@@ -13,6 +13,7 @@ if(process.env.NODE_ENV === 'test'){
     sequelize = new Sequelize('sqlite::memory:', options)
 }
 const models_fn = [User]
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const db: any = { sequelize }
 
 for(const model_fn of models_fn){
