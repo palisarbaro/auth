@@ -13,6 +13,7 @@ export default class TokenService {
     }
 
     async generateTokens(payload: UserJWTPayload){
+        payload.rnd = Math.random()
         const accessToken = jwt.sign(payload, ACCESS_SECRET, { expiresIn: '15s' })
         const refreshToken = jwt.sign(payload, REFRESH_SECRET, { expiresIn: '1m' })
         this.tokenAccessor.saveRefreshToken(payload.username, refreshToken)
