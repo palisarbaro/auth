@@ -4,9 +4,12 @@ denv.config()
 
 
 export const ACCESS_SECRET = process.env.ACCESS_SECRET || ''
+export const ACCESS_TIMEOUT = process.env.ACCESS_TIMEOUT || '15s'
 export const REFRESH_SECRET = process.env.REFRESH_SECRET || ''
+export const REFRESH_TIMEOUT = process.env.REFRESH_TIMEOUT || '1m'
 
-export const port = process.env.PORT || 5000
+
+export const port = process.env.PORT || '5000'
 
 export const frontend_url = process.env.FRONTEND || ''
 
@@ -15,9 +18,8 @@ export const DB_PASSWORD = process.env.DB_PASSWORD
 export const DB_URL = process.env.DB_URL
 export const DB_NAME = process.env.DB_NAME
 
-
-const ssl_key: string = process.env.SSL_KEY || ''
-const ssl_cert: string = process.env.SSL_CERT || ''
+const ssl_key = process.env.SSL_KEY || ''
+const ssl_cert = process.env.SSL_CERT || ''
 
 export let credentials = {}
 try{
