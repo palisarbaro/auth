@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 
 import ITokenAccessor from '../accessors/ITokenAccessor'
 import { Unauthorized } from '../errors'
-import { ACCESS_SECRET, REFRESH_SECRET } from '../config'
+import { ACCESS_SECRET, REFRESH_SECRET, ACCESS_TIMEOUT, REFRESH_TIMEOUT } from '../config'
 import { UserJWTPayload } from './JWTPayload'
 
 export default class TokenService {
@@ -14,8 +14,8 @@ export default class TokenService {
 
     async generateTokens(payload: UserJWTPayload){
         payload.rnd = Math.random()
-        const accessToken = jwt.sign(payload, ACCESS_SECRET, { expiresIn: '15s' })
-        const refreshToken = jwt.sign(payload, REFRESH_SECRET, { expiresIn: '1m' })
+        const accessToken = jwt.sign(payload, ACCESS_SECRET, { expiresIn: ACCESS_TIMEOUT })
+        const refreshToken = jwt.sign(payload, REFRESH_SECRET, { expiresIn: REFRESH_TIMEOUT })
         this.tokenAccessor.saveRefreshToken(payload.username, refreshToken)
         return {
             accessToken,
