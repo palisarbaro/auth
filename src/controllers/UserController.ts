@@ -1,8 +1,10 @@
+import { Request, Response, NextFunction } from 'express'
+
 import { BadRequest, UserAlreadyExists } from '../errors'
 import TokenService from '../services/TokenService'
 import UserService from '../services/UserService'
-import { Request, Response, NextFunction } from 'express'
 import { responseOk } from '../utils'
+
 export default class UserController{
     userService: UserService
     tokenService: TokenService

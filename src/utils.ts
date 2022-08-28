@@ -1,4 +1,6 @@
 import { Response } from 'express'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function responseOk(res: Response, obj: any){
     if(!obj){
         obj = {}

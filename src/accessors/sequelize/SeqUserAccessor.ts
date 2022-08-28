@@ -1,5 +1,6 @@
 import IUserAccessor from '../IUserAccessor'
 import db from '../../models/dbInstance'
+
 export default class SeqUsernAccessor implements IUserAccessor{
 
     async createUser(name: string, hashedpassword: string): Promise<boolean> {

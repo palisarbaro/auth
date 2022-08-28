@@ -1,5 +1,3 @@
-import db from '../models/dbInstance'
-
 import SeqUserAccessor from '../accessors/sequelize/SeqUserAccessor'
 import SeqTokenAccessor from '../accessors/sequelize/SeqTokenAccessor'
 

@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from 'sequelize'
+import { Sequelize } from 'sequelize'
 import fs from 'fs'
 
 import User from './User'
