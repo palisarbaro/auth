@@ -16,7 +16,7 @@ class UserService {
 
     }
 
-    async validatePassword(username: string, password:string){
+    async validatePassword(username: string, password: string){
         const passhash = await this.userAccessor.getPassworHashdByUserName(username)
         if (passhash === null) {
             throw new Unauthorized('Such user doesn\'t exist')

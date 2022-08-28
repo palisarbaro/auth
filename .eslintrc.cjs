@@ -48,6 +48,7 @@ module.exports = {
             'error',
             { 'align': 'colon' }
         ],
+        "@typescript-eslint/type-annotation-spacing": "error",
         'no-trailing-spaces': 'error',
         'space-infix-ops'   : 'error'
     }
