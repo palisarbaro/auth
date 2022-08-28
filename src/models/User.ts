@@ -1,4 +1,5 @@
-export default function(sequelize, DataTypes){
+import { Sequelize, DataTypes } from 'sequelize'
+export default function(sequelize: Sequelize){
     return sequelize.define('User', {
         name: {
             type     : DataTypes.STRING,

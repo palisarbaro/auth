@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from 'express'
 export class ApiError extends Error {
     status: number
     constructor(status: number, message: string) {
@@ -25,7 +26,7 @@ export class BadRequest extends ApiError {
 }
 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-export function errorHandler(err, req, res, next) {
+export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
     if(err instanceof ApiError){
         res.status(err.status).json({ status: 'error', error: err.message })
     }
