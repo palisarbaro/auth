@@ -1,6 +1,9 @@
+import { Request, Response, NextFunction } from 'express'
+
 import { BadRequest, UserAlreadyExists } from '../errors'
 import TokenService from '../services/TokenService'
 import UserService from '../services/UserService'
+import { responseOk } from '../utils'
 
 export default class UserController{
     userService: UserService
@@ -11,7 +14,7 @@ export default class UserController{
         this.tokenService = tokenService
     }
 
-    async createUser(req, res, next) {
+    async createUser(req: Request, res: Response, next: NextFunction) {
         try{
             const username = req.body.username
             const password =  req.body.password
@@ -20,7 +23,7 @@ export default class UserController{
             }
             const created = await this.userService.createUser(username, password)
             if (created){
-                res.responseOk()
+                responseOk(res, undefined)
             }
             else{
                 throw new UserAlreadyExists()
@@ -31,7 +34,7 @@ export default class UserController{
         }
     }
 
-    async login(req, res, next) {
+    async login(req: Request, res: Response, next: NextFunction) {
         try{
             const username = req.body.username
             const password =  req.body.password
@@ -41,7 +44,7 @@ export default class UserController{
             await this.userService.validatePassword(username, password)
             const tokens = await this.tokenService.generateTokens({ username })
             res.cookie('refreshToken', tokens.refreshToken, { maxAge: 1000 * 60 * 60, httpOnly: true, secure: true })
-            res.responseOk({ accessToken: tokens.accessToken })
+            responseOk(res, { accessToken: tokens.accessToken })
         }
         catch(err){
             next(err)

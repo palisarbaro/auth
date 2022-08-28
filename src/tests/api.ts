@@ -1,10 +1,11 @@
 process.env.NODE_ENV = 'test'
 
-
 import { expect, use, request } from 'chai'
 import chaiHttp from 'chai-http'
+
 import { app } from '../index'
 import db  from '../models/dbInstance'
+
 use(chaiHttp)
 
 describe('API tests', () => {

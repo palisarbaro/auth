@@ -1,5 +1,8 @@
+import { Request, Response, NextFunction } from 'express'
+
 import { BadRequest } from '../errors'
 import TokenService from '../services/TokenService'
+import { responseOk } from '../utils'
 
 export default class TokenController {
     tokenService: TokenService
@@ -8,7 +11,7 @@ export default class TokenController {
         this.tokenService =  tokenService
     }
 
-    async token(req, res, next) {
+    async token(req: Request, res: Response, next: NextFunction) {
         try{
             const refreshToken = req.cookies['refreshToken']
             if(!refreshToken){
@@ -16,7 +19,7 @@ export default class TokenController {
             }
             const tokens = await this.tokenService.refresh(refreshToken)
             res.cookie('refreshToken', tokens.refreshToken, { maxAge: 1000 * 60 * 60, httpOnly: true, secure: true })
-            res.responseOk({ accessToken: tokens.accessToken })
+            responseOk(res, { accessToken: tokens.accessToken })
         }
         catch(err){
             next(err)
