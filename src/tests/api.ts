@@ -72,4 +72,26 @@ describe('API tests', () => {
         expect(cookie).not.equal(res3.header['set-cookie'][0]) //refreshToken changed
 
     })
+    it('Can logout', async function()  {
+        const username = 'aaa'
+        const password = 'bbb'
+        const res1 = await request(app)
+            .post('/auth/createuser')
+            .send({ username, password })
+        expect(res1).have.status(200)
+
+        const res2 = await request(app)
+            .post('/auth/login')
+            .send({ username, password })
+        expect(res2).have.status(200)
+        expect(res2.body).have.property('accessToken')
+        expect(res2).have.cookie('refreshToken')
+        const cookie = res2.header['set-cookie'][0]
+        const res3 = await request(app)
+            .post('/auth/logout').set('Cookie', cookie)
+        expect(res3).have.status(200)
+        expect(res3).not.have.cookie('refreshToken')
+        const user = await db.User.findOne({ where: { name: username } })
+        expect(user.refreshToken).equal(null)
+    })
 })

@@ -39,4 +39,8 @@ export default class TokenService {
             throw new Unauthorized()
         }
     }
+
+    async logout(refreshToken: string){
+        await this.tokenAccessor.removeRefreshToken(refreshToken)
+    }
 }

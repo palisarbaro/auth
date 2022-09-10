@@ -50,4 +50,19 @@ export default class UserController{
             next(err)
         }
     }
+
+    async logout(req: Request, res: Response, next: NextFunction) {
+        try{
+            const refreshToken = req.cookies['refreshToken']
+            if(!refreshToken){
+                throw new BadRequest('refresh token is not provided')
+            }
+            await this.tokenService.logout(refreshToken)
+            res.clearCookie('refreshToken')
+            responseOk(res, undefined)
+        }
+        catch(err){
+            next(err)
+        }
+    }
 }
