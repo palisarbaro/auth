@@ -7,7 +7,10 @@ export default function(sequelize: Sequelize){
             allowNull: false,
             unique   : true
         },
-        hashedpassword: DataTypes.STRING,
-        refreshToken  : DataTypes.STRING
+        hashedpassword: {
+            type     : DataTypes.STRING,
+            allowNull: false
+        },
+        refreshToken: DataTypes.STRING
     })
 }

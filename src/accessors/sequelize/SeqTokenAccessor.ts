@@ -2,6 +2,9 @@ import ITokenAccessor from '../ITokenAccessor'
 import db from '../../models/dbInstance'
 
 export default class SeqTokenAccessor implements ITokenAccessor{
+    async removeRefreshToken(refreshToken: string): Promise<void> {
+        await db.User.update({ refreshToken: null }, { where: { refreshToken } })
+    }
 
     async saveRefreshToken(name: string, refreshToken: string): Promise<void> {
         await db.User.update({ refreshToken }, { where: { name } })
